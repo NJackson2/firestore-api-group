@@ -11,3 +11,13 @@ export function createClothing(req, res) {
         .catch(err => res.send.status(500).send({success: false, message: err}))
 
 }
+
+export function getAllClothing(req, res) {
+    const db = dbConnect()
+    db.collection('clothing').get()
+        .then(collection => {
+            const clothingList = collection.docs.map(doc => doc.data())
+            res.send(clothingList)
+        })
+        .catch(err => res.send.status(500).send({success: false, message: err}))
+}
